@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="UTF-8"?><MetamergeConfig Cycle="42" UUID="7248e306-1fb8-49e4-a288-ea7f0df46de1" created="Thu Nov 17 16:25:57 CET 2016" createdBy="Administrator" main="1.1.DeleteWidget4All" modified="Tue Feb 28 12:57:33 CET 2017" modifiedBy="Administrator" project="CustomTDISol" version="7.1.1">
+    <AssemblyLine name="1.1.DeleteWidget4All">
+        <ModTime>1488283053238</ModTime>
+        <Settings/>
+        <Hooks/>
+        <CheckpointConfig/>
+        <SandboxConfig/>
+        <SimulationConfig>
+            <SimulationStates>
+                <Component name="setAttributes" state="Enabled"/>
+                <Component name="deleteWidgetOnMyPage" state="Simulated"/>
+                <Component name="iterateWidgets" state="Enabled"/>
+            </SimulationStates>
+            <ProxySettings/>
+        </SimulationConfig>
+        <LogConfig>
+            <ModTime>1479468805867</ModTime>
+            <Logger name="FileRollerAppender">
+                <InheritFrom>system:/Loggers/ibmdi.FileRollerAppender</InheritFrom>
+                <ModTime>1479468805867</ModTime>
+                <parameter name="IDIFileRoller.File">D:\IBM\TDI\tdisol55custom\logs\setFollow.log</parameter>
+                <parameter name="IDIFileRoller.RollCount">30</parameter>
+                <parameter name="Pattern.ConversionPattern">%d{ISO8601} %-5p [%c] - %m%n</parameter>
+                <parameter name="com.ibm.di.log.layout">Pattern</parameter>
+                <parameter name="com.ibm.di.log.level">INFO</parameter>
+                <parameter name="enabled">true</parameter>
+            </Logger>
+        </LogConfig>
+        <ContainerEF name="EntryFeedContainer">
+            <ModTime>1488282937478</ModTime>
+            <Connector name="iterateWidgets">
+                <InheritFrom>system:/Connectors/ibmdi.JDBC</InheritFrom>
+                <ModTime>1488282937478</ModTime>
+                <ConnectorMode>Iterator</ConnectorMode>
+                <ConnectorState>Enabled</ConnectorState>
+                <Configuration>
+                    <InheritFrom>[parent]</InheritFrom>
+                    <parameter name="jdbcDelete">delete from HOMEPAGE.HP_WIDGET_INST where HOMEPAGE.WIDGET_ID = {work.widget_id}</parameter>
+                    <parameter name="jdbcDriver">@SUBSTITUTE{property.profiles:dbrepos_jdbc_driver}</parameter>
+                    <parameter name="jdbcLogin">db2admin</parameter>
+                    <parameter name="jdbcPassword">PASSWORD</parameter>
+                    <parameter name="jdbcSchema">HOMEPAGE</parameter>
+                    <parameter name="jdbcSource">jdbc:db2://localhost:50000/homepage</parameter>
+                    <parameter name="jdbcTable">HP_WIDGET_INST</parameter>
+                </Configuration>
+                <Parser>
+                    <InheritFrom>[parent]</InheritFrom>
+                    <Schema name="Input">
+                        <InheritFrom>[parent]</InheritFrom>
+                    </Schema>
+                    <Schema name="Output">
+                        <InheritFrom>[parent]</InheritFrom>
+                    </Schema>
+                </Parser>
+                <AttributeMap name="Input">
+                    <InheritFrom>[parent]</InheritFrom>
+                    <ModTime>1488282937478</ModTime>
+                    <AttributeMapItem>
+                        <Name>itr_WIDGET_ID</Name>
+                        <Type>simple</Type>
+                        <Simple>WIDGET_ID</Simple>
+                    </AttributeMapItem>
+                    <AttributeMapItem>
+                        <Name>itr_WIDGET_INST_ID</Name>
+                        <Type>simple</Type>
+                        <Simple>WIDGET_INST_ID</Simple>
+                    </AttributeMapItem>
+                </AttributeMap>
+                <AttributeMap name="Output">
+                    <InheritFrom>[parent]</InheritFrom>
+                    <AttributeMapItem>
+                        <Name>CONTAINER</Name>
+                        <Type>advanced</Type>
+                        <Script>ret.value="1"</Script>
+                        <Simple>CONTAINER</Simple>
+                    </AttributeMapItem>
+                    <AttributeMapItem>
+                        <Name>IS_FIXED</Name>
+                        <Type>advanced</Type>
+                        <Script>ret.value="0"</Script>
+                        <Simple>IS_FIXED</Simple>
+                    </AttributeMapItem>
+                    <AttributeMapItem>
+                        <Name>IS_TOGGLED</Name>
+                        <Type>advanced</Type>
+                        <Script>ret.value="1"</Script>
+                        <Simple>IS_TOGGLED</Simple>
+                    </AttributeMapItem>
+                    <AttributeMapItem>
+                        <Name>LAST_MODIFIED</Name>
+                        <Type>advanced</Type>
+                        <Script>ret.value=work.timenow</Script>
+                        <Simple>LAST_MODIFIED</Simple>
+                    </AttributeMapItem>
+                    <AttributeMapItem>
+                        <Name>LAST_UPDATED</Name>
+                        <Type>advanced</Type>
+                        <Script>ret.value=work.timenow</Script>
+                        <Simple>LAST_UPDATED</Simple>
+                    </AttributeMapItem>
+                    <AttributeMapItem>
+                        <Name>ORDER_SEQUENCE</Name>
+                        <Type>advanced</Type>
+                        <Script>ret.value="0"</Script>
+                        <Simple>ORDER_SEQUENCE</Simple>
+                    </AttributeMapItem>
+                    <AttributeMapItem>
+                        <Name>ORGANIZATION_ID</Name>
+                        <Type>advanced</Type>
+                        <Script>ret.value="00000000-0000-0000-0000-000000000000"</Script>
+                        <Simple>ORGANIZATION_ID</Simple>
+                    </AttributeMapItem>
+                    <AttributeMapItem>
+                        <Name>TAB_INST_ID</Name>
+                        <Type>advanced</Type>
+                        <Script>work["2_TAB_INST_ID"]</Script>
+                        <Simple>TAB_INST_ID</Simple>
+                    </AttributeMapItem>
+                    <AttributeMapItem>
+                        <Name>WIDGET_ID</Name>
+                        <Type>advanced</Type>
+                        <Script>ret.value = work.widget_id</Script>
+                        <Simple>WIDGET_ID</Simple>
+                    </AttributeMapItem>
+                    <AttributeMapItem>
+                        <Name>WIDGET_INST_ID</Name>
+                        <Type>advanced</Type>
+                        <Script>ret.value = work.WidgetInstID_generated</Script>
+                        <Simple>WIDGET_INST_ID</Simple>
+                    </AttributeMapItem>
+                    <AttributeMapItem>
+                        <Name>WIDGET_SETTING</Name>
+                        <Type>simple</Type>
+                        <Enabled>false</Enabled>
+                        <Simple>WIDGET_SETTING</Simple>
+                    </AttributeMapItem>
+                </AttributeMap>
+                <DeltaSettings>
+                    <ModTime>1488282824226</ModTime>
+                    <UniqueAttribute/>
+                    <WhenToCommit>After every database operation</WhenToCommit>
+                    <RowLocking>SERIALIZABLE</RowLocking>
+                    <ChangeDetectionMode>DETECT_ALL</ChangeDetectionMode>
+                </DeltaSettings>
+                <Schema name="Input">
+                    <InheritFrom>[parent]</InheritFrom>
+                    <ModTime>1488282829978</ModTime>
+                    <SchemaItem>
+                        <Name>CONTAINER</Name>
+                        <Syntax>java.lang.String</Syntax>
+                        <NativeSyntax>VARCHAR</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>IS_FIXED</Name>
+                        <Syntax>java.lang.Integer</Syntax>
+                        <NativeSyntax>SMALLINT</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>IS_TOGGLED</Name>
+                        <Syntax>java.lang.Integer</Syntax>
+                        <NativeSyntax>SMALLINT</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>LAST_MODIFIED</Name>
+                        <Syntax>java.sql.Timestamp</Syntax>
+                        <NativeSyntax>TIMESTAMP</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>LAST_UPDATED</Name>
+                        <Syntax>java.sql.Timestamp</Syntax>
+                        <NativeSyntax>TIMESTAMP</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>ORDER_SEQUENCE</Name>
+                        <Syntax>java.lang.Integer</Syntax>
+                        <NativeSyntax>SMALLINT</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>ORGANIZATION_ID</Name>
+                        <Syntax>java.lang.String</Syntax>
+                        <NativeSyntax>VARCHAR</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>TAB_INST_ID</Name>
+                        <Syntax>java.lang.String</Syntax>
+                        <NativeSyntax>VARCHAR</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>WIDGET_ID</Name>
+                        <Syntax>java.lang.String</Syntax>
+                        <NativeSyntax>VARCHAR</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>WIDGET_INST_ID</Name>
+                        <Syntax>java.lang.String</Syntax>
+                        <NativeSyntax>VARCHAR</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>WIDGET_SETTING</Name>
+                        <NativeSyntax>VARCHAR</NativeSyntax>
+                    </SchemaItem>
+                </Schema>
+                <Schema name="Output">
+                    <InheritFrom>[parent]</InheritFrom>
+                    <ModTime>1488282829978</ModTime>
+                    <SchemaItem>
+                        <Name>CONTAINER</Name>
+                        <Syntax>java.lang.String</Syntax>
+                        <NativeSyntax>VARCHAR</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>IS_FIXED</Name>
+                        <Syntax>java.lang.Integer</Syntax>
+                        <NativeSyntax>SMALLINT</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>IS_TOGGLED</Name>
+                        <Syntax>java.lang.Integer</Syntax>
+                        <NativeSyntax>SMALLINT</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>LAST_MODIFIED</Name>
+                        <Syntax>java.sql.Timestamp</Syntax>
+                        <NativeSyntax>TIMESTAMP</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>LAST_UPDATED</Name>
+                        <Syntax>java.sql.Timestamp</Syntax>
+                        <NativeSyntax>TIMESTAMP</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>ORDER_SEQUENCE</Name>
+                        <Syntax>java.lang.Integer</Syntax>
+                        <NativeSyntax>SMALLINT</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>ORGANIZATION_ID</Name>
+                        <Syntax>java.lang.String</Syntax>
+                        <NativeSyntax>VARCHAR</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>TAB_INST_ID</Name>
+                        <Syntax>java.lang.String</Syntax>
+                        <NativeSyntax>VARCHAR</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>WIDGET_ID</Name>
+                        <Syntax>java.lang.String</Syntax>
+                        <NativeSyntax>VARCHAR</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>WIDGET_INST_ID</Name>
+                        <Syntax>java.lang.String</Syntax>
+                        <NativeSyntax>VARCHAR</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>WIDGET_SETTING</Name>
+                        <NativeSyntax>VARCHAR</NativeSyntax>
+                    </SchemaItem>
+                </Schema>
+                <LinkCriteria>
+                    <InheritFrom>[parent]</InheritFrom>
+                </LinkCriteria>
+                <Hooks>
+                    <InheritFrom>[parent]</InheritFrom>
+                    <Hook name="addonly_ok">
+                        <InheritFrom>[no inheritance]</InheritFrom>
+                        <Name>addonly_ok</Name>
+                        <Script>task.logmsg("--------------&gt; Widget added on user " + work["1_PERSON_ID"])</Script>
+                        <Enabled>true</Enabled>
+                    </Hook>
+                </Hooks>
+                <CheckpointConfig/>
+                <SandboxConfig/>
+                <Reconnect>
+                    <InheritFrom>[parent]</InheritFrom>
+                    <ReconnectRules/>
+                </Reconnect>
+                <Operations/>
+                <PoolDefinition>
+                    <InheritFrom>[parent]</InheritFrom>
+                </PoolDefinition>
+                <PoolInstance/>
+            </Connector>
+        </ContainerEF>
+        <ContainerDF name="DataFlowContainer">
+            <ModTime>1488283053238</ModTime>
+            <ALMap name="setAttributes">
+                <InheritFrom>[no inheritance]</InheritFrom>
+                <ModTime>1488282539619</ModTime>
+                <AttributeMap name="Input">
+                    <InheritFrom>[parent]</InheritFrom>
+                    <ModTime>1488282539619</ModTime>
+                    <AttributeMapItem>
+                        <Name>widget_id</Name>
+                        <Type>advanced</Type>
+                        <Script>ret.value="7df0edbe-3fed-4d70-bef4-e7567227504e"</Script>
+                    </AttributeMapItem>
+                </AttributeMap>
+                <State>Enabled</State>
+            </ALMap>
+            <Connector name="deleteWidgetOnMyPage">
+                <InheritFrom>system:/Connectors/ibmdi.JDBC</InheritFrom>
+                <ModTime>1488283053238</ModTime>
+                <ConnectorMode>Delete</ConnectorMode>
+                <ConnectorState>Enabled</ConnectorState>
+                <Configuration>
+                    <InheritFrom>[parent]</InheritFrom>
+                    <ModTime>1488282858665</ModTime>
+                    <parameter name="jdbcDelete"/>
+                    <parameter name="jdbcDriver">@SUBSTITUTE{property.profiles:dbrepos_jdbc_driver}</parameter>
+                    <parameter name="jdbcLogin">db2admin</parameter>
+                    <parameter name="jdbcPassword">PASSWORD</parameter>
+                    <parameter name="jdbcSchema">HOMEPAGE</parameter>
+                    <parameter name="jdbcSource">jdbc:db2://localhost:50000/homepage</parameter>
+                    <parameter name="jdbcTable">HP_WIDGET_INST</parameter>
+                </Configuration>
+                <Parser>
+                    <InheritFrom>[parent]</InheritFrom>
+                    <Schema name="Input">
+                        <InheritFrom>[parent]</InheritFrom>
+                    </Schema>
+                    <Schema name="Output">
+                        <InheritFrom>[parent]</InheritFrom>
+                    </Schema>
+                </Parser>
+                <AttributeMap name="Input">
+                    <InheritFrom>[parent]</InheritFrom>
+                </AttributeMap>
+                <AttributeMap name="Output">
+                    <InheritFrom>[parent]</InheritFrom>
+                    <AttributeMapItem>
+                        <Name>CONTAINER</Name>
+                        <Type>advanced</Type>
+                        <Script>ret.value="1"</Script>
+                        <Simple>CONTAINER</Simple>
+                    </AttributeMapItem>
+                    <AttributeMapItem>
+                        <Name>IS_FIXED</Name>
+                        <Type>advanced</Type>
+                        <Script>ret.value="0"</Script>
+                        <Simple>IS_FIXED</Simple>
+                    </AttributeMapItem>
+                    <AttributeMapItem>
+                        <Name>IS_TOGGLED</Name>
+                        <Type>advanced</Type>
+                        <Script>ret.value="1"</Script>
+                        <Simple>IS_TOGGLED</Simple>
+                    </AttributeMapItem>
+                    <AttributeMapItem>
+                        <Name>LAST_MODIFIED</Name>
+                        <Type>advanced</Type>
+                        <Script>ret.value=work.timenow</Script>
+                        <Simple>LAST_MODIFIED</Simple>
+                    </AttributeMapItem>
+                    <AttributeMapItem>
+                        <Name>LAST_UPDATED</Name>
+                        <Type>advanced</Type>
+                        <Script>ret.value=work.timenow</Script>
+                        <Simple>LAST_UPDATED</Simple>
+                    </AttributeMapItem>
+                    <AttributeMapItem>
+                        <Name>ORDER_SEQUENCE</Name>
+                        <Type>advanced</Type>
+                        <Script>ret.value="0"</Script>
+                        <Simple>ORDER_SEQUENCE</Simple>
+                    </AttributeMapItem>
+                    <AttributeMapItem>
+                        <Name>ORGANIZATION_ID</Name>
+                        <Type>advanced</Type>
+                        <Script>ret.value="00000000-0000-0000-0000-000000000000"</Script>
+                        <Simple>ORGANIZATION_ID</Simple>
+                    </AttributeMapItem>
+                    <AttributeMapItem>
+                        <Name>TAB_INST_ID</Name>
+                        <Type>advanced</Type>
+                        <Script>work["2_TAB_INST_ID"]</Script>
+                        <Simple>TAB_INST_ID</Simple>
+                    </AttributeMapItem>
+                    <AttributeMapItem>
+                        <Name>WIDGET_ID</Name>
+                        <Type>advanced</Type>
+                        <Script>ret.value = work.widget_id</Script>
+                        <Simple>WIDGET_ID</Simple>
+                    </AttributeMapItem>
+                    <AttributeMapItem>
+                        <Name>WIDGET_INST_ID</Name>
+                        <Type>advanced</Type>
+                        <Script>ret.value = work.WidgetInstID_generated</Script>
+                        <Simple>WIDGET_INST_ID</Simple>
+                    </AttributeMapItem>
+                    <AttributeMapItem>
+                        <Name>WIDGET_SETTING</Name>
+                        <Type>simple</Type>
+                        <Enabled>false</Enabled>
+                        <Simple>WIDGET_SETTING</Simple>
+                    </AttributeMapItem>
+                </AttributeMap>
+                <DeltaSettings>
+                    <WhenToCommit>After every database operation</WhenToCommit>
+                    <RowLocking>SERIALIZABLE</RowLocking>
+                    <ChangeDetectionMode>DETECT_ALL</ChangeDetectionMode>
+                </DeltaSettings>
+                <Schema name="Input">
+                    <InheritFrom>[parent]</InheritFrom>
+                    <ModTime>1488282283380</ModTime>
+                    <SchemaItem>
+                        <Name>CONTAINER</Name>
+                        <Syntax>java.lang.String</Syntax>
+                        <NativeSyntax>VARCHAR</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>IS_FIXED</Name>
+                        <Syntax>java.lang.Integer</Syntax>
+                        <NativeSyntax>SMALLINT</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>IS_TOGGLED</Name>
+                        <Syntax>java.lang.Integer</Syntax>
+                        <NativeSyntax>SMALLINT</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>LAST_MODIFIED</Name>
+                        <Syntax>java.sql.Timestamp</Syntax>
+                        <NativeSyntax>TIMESTAMP</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>LAST_UPDATED</Name>
+                        <Syntax>java.sql.Timestamp</Syntax>
+                        <NativeSyntax>TIMESTAMP</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>ORDER_SEQUENCE</Name>
+                        <Syntax>java.lang.Integer</Syntax>
+                        <NativeSyntax>SMALLINT</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>ORGANIZATION_ID</Name>
+                        <Syntax>java.lang.String</Syntax>
+                        <NativeSyntax>VARCHAR</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>TAB_INST_ID</Name>
+                        <Syntax>java.lang.String</Syntax>
+                        <NativeSyntax>VARCHAR</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>WIDGET_ID</Name>
+                        <Syntax>java.lang.String</Syntax>
+                        <NativeSyntax>VARCHAR</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>WIDGET_INST_ID</Name>
+                        <Syntax>java.lang.String</Syntax>
+                        <NativeSyntax>VARCHAR</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>WIDGET_SETTING</Name>
+                        <NativeSyntax>VARCHAR</NativeSyntax>
+                    </SchemaItem>
+                </Schema>
+                <Schema name="Output">
+                    <InheritFrom>[parent]</InheritFrom>
+                    <ModTime>1488282283380</ModTime>
+                    <SchemaItem>
+                        <Name>CONTAINER</Name>
+                        <Syntax>java.lang.String</Syntax>
+                        <NativeSyntax>VARCHAR</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>IS_FIXED</Name>
+                        <Syntax>java.lang.Integer</Syntax>
+                        <NativeSyntax>SMALLINT</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>IS_TOGGLED</Name>
+                        <Syntax>java.lang.Integer</Syntax>
+                        <NativeSyntax>SMALLINT</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>LAST_MODIFIED</Name>
+                        <Syntax>java.sql.Timestamp</Syntax>
+                        <NativeSyntax>TIMESTAMP</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>LAST_UPDATED</Name>
+                        <Syntax>java.sql.Timestamp</Syntax>
+                        <NativeSyntax>TIMESTAMP</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>ORDER_SEQUENCE</Name>
+                        <Syntax>java.lang.Integer</Syntax>
+                        <NativeSyntax>SMALLINT</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>ORGANIZATION_ID</Name>
+                        <Syntax>java.lang.String</Syntax>
+                        <NativeSyntax>VARCHAR</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>TAB_INST_ID</Name>
+                        <Syntax>java.lang.String</Syntax>
+                        <NativeSyntax>VARCHAR</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>WIDGET_ID</Name>
+                        <Syntax>java.lang.String</Syntax>
+                        <NativeSyntax>VARCHAR</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>WIDGET_INST_ID</Name>
+                        <Syntax>java.lang.String</Syntax>
+                        <NativeSyntax>VARCHAR</NativeSyntax>
+                    </SchemaItem>
+                    <SchemaItem>
+                        <Name>WIDGET_SETTING</Name>
+                        <NativeSyntax>VARCHAR</NativeSyntax>
+                    </SchemaItem>
+                </Schema>
+                <LinkCriteria>
+                    <InheritFrom>[parent]</InheritFrom>
+                    <ModTime>1488282944572</ModTime>
+                    <LinkCriteriaItem>
+                        <Key>15a84927e26</Key>
+                        <Attribute>WIDGET_ID</Attribute>
+                        <Operator>equals</Operator>
+                        <Value>$widget_id</Value>
+                    </LinkCriteriaItem>
+                    <LinkCriteriaItem>
+                        <Key>15a8493217a</Key>
+                        <Attribute>WIDGET_INST_ID</Attribute>
+                        <Operator>equals</Operator>
+                        <Value>$itr_WIDGET_INST_ID</Value>
+                    </LinkCriteriaItem>
+                </LinkCriteria>
+                <Hooks>
+                    <InheritFrom>[parent]</InheritFrom>
+                    <ModTime>1488283053238</ModTime>
+                    <Hook name="addonly_ok">
+                        <InheritFrom>[no inheritance]</InheritFrom>
+                        <Name>addonly_ok</Name>
+                        <Script>task.logmsg("--------------&gt; Widget added on user " + work["1_PERSON_ID"])</Script>
+                        <Enabled>true</Enabled>
+                    </Hook>
+                    <Hook name="delete_nomatch">
+                        <InheritFrom>[no inheritance]</InheritFrom>
+                        <ModTime>1488283027664</ModTime>
+                        <Name>delete_nomatch</Name>
+                        <Script>task.logmsg("--------&gt; Skipping")</Script>
+                        <Enabled>true</Enabled>
+                    </Hook>
+                    <Hook name="delete_ok">
+                        <InheritFrom>[no inheritance]</InheritFrom>
+                        <ModTime>1488283053238</ModTime>
+                        <Name>delete_ok</Name>
+                        <Script>task.logmsg("-----------&gt; Deleted" + work.itr_WIDGET_INST_ID)</Script>
+                        <Enabled>true</Enabled>
+                    </Hook>
+                </Hooks>
+                <CheckpointConfig/>
+                <SandboxConfig/>
+                <Reconnect>
+                    <InheritFrom>[parent]</InheritFrom>
+                    <ReconnectRules/>
+                </Reconnect>
+                <Operations/>
+                <PoolDefinition>
+                    <InheritFrom>[parent]</InheritFrom>
+                </PoolDefinition>
+                <PoolInstance/>
+            </Connector>
+        </ContainerDF>
+        <ThreadOptions/>
+        <Operations/>
+        <InitParams>
+            <Schema name="AssemblyLineInitParams"/>
+        </InitParams>
+    </AssemblyLine>
+</MetamergeConfig>fig>
