@@ -1,5 +1,8 @@
 # Connections---Deploy-Widget-to-all-users
 
+DISCLAIMER:
+<b>If you run this code, you should ALWAYS do a backup of the Homepage database first!<br></b>
+<br>
 IBM Connections provides Widget developers with the option to "open by default". Which should mean that everyone should get the widget pushed out into the Homepage app, right?..... Wrong!<br>
 It turns out, this is only true when it comes to new users who has never logged into Connections before.<br><br>
 That´s why I created these two TDI Assembly Lines. One for pushing out the Widget to "My Page" and to the right-hand side column on "Updates", and one Assembly Line to delete the widget again.<br><br>
